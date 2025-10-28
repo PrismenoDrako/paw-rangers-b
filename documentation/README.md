@@ -1,0 +1,1 @@
+Carpeta destino para la documentación del sistema
