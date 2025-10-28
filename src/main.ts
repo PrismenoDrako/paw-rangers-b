@@ -5,4 +5,6 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   await app.listen(process.env.PORT ?? 3000);
 }
+
+console.log('DB_PASSWORD:', process.env.DATABASE_PASSWORD);
 bootstrap();
