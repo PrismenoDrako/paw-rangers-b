@@ -3,13 +3,17 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './modules/users/users.module';
-
+import { ConfigModule } from '@nestjs/config';
 
 
 
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+			isGlobal: true,
+			envFilePath: '.env',
+		}),
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: process.env.DATABASE_HOST,
