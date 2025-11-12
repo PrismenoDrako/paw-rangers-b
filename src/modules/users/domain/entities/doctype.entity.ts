@@ -11,8 +11,8 @@
  * @example
  * ```typescript
  * const dni = new DocType(1, 'DNI', 'Documento Nacional de Identidad', 8);
- * dni.validateNumber('12345678'); // ✅ válido
- * dni.validateNumber('1234');     // ❌ lanza Error
+ * dni.validateNumber('12345678'); // válido
+ * dni.validateNumber('1234');     // lanza Error
  * ```
  */
 export class DocType {

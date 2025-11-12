@@ -13,7 +13,7 @@
  * };
  * ```
  */
-export interface CreateDocTypeDto {
+export class CreateDocTypeDto {
 	/**
 	 * Nombre único del tipo de documento (por ejemplo: `"DNI"`, `"Pasaporte"`, `"RUC"`).
 	 */

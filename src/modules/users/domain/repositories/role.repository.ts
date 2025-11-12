@@ -6,7 +6,7 @@ import { Role } from "../entities/role.entity";
  * Define las operaciones principales de persistencia y consulta
  * relacionadas con la entidad `Role`, sin depender de una implementación específica.
  */
-export interface IRoleRepository {
+export abstract class IRoleRepository {
 	/**
 	 * Guarda un rol en el repositorio.
 	 * Si el rol ya existe, se actualiza; si no, se crea uno nuevo.
@@ -14,7 +14,7 @@ export interface IRoleRepository {
 	 * @param role Entidad de dominio `Role` a guardar.
 	 * @returns La entidad `Role` persistida.
 	 */
-	save(role: Role): Promise<Role>;
+	abstract save(role: Role): Promise<Role>;
 
 	/**
 	 * Busca un rol por su identificador único.
@@ -22,7 +22,7 @@ export interface IRoleRepository {
 	 * @param id Identificador del rol.
 	 * @returns La entidad `Role` encontrada o `null` si no existe.
 	 */
-	findById(id: number): Promise<Role | null>;
+	abstract findById(id: number): Promise<Role | null>;
 
 	/**
 	 * Busca un rol por su nombre único.
@@ -30,19 +30,19 @@ export interface IRoleRepository {
 	 * @param name Nombre del rol.
 	 * @returns La entidad `Role` encontrada o `null` si no existe.
 	 */
-	findByName(name: string): Promise<Role | null>;
+	abstract findByName(name: string): Promise<Role | null>;
 
 	/**
 	 * Obtiene todos los roles registrados.
 	 *
 	 * @returns Una lista de entidades `Role`.
 	 */
-	findAll(): Promise<Role[]>;
+	abstract findAll(): Promise<Role[]>;
 
 	/**
 	 * Elimina un rol del repositorio por su identificador.
 	 *
 	 * @param id Identificador del rol a eliminar.
 	 */
-	delete(id: number): Promise<void>;
+	abstract delete(id: number): Promise<void>;
 }

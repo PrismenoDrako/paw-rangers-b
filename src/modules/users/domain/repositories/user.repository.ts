@@ -16,7 +16,7 @@ import { Email } from "../value-objects/email.vo";
  * }
  * ```
  */
-export interface IUserRepository {
+export abstract class IUserRepository {
 	/**
 	 * Guarda un usuario en el repositorio.
 	 * Si el usuario ya existe, se actualiza; si no, se crea uno nuevo.
@@ -24,7 +24,7 @@ export interface IUserRepository {
 	 * @param user Entidad de dominio `User` a guardar.
 	 * @returns La entidad `User` persistida.
 	 */
-	save(user: User): Promise<User>;
+	abstract save(user: User): Promise<User>;
 
 	/**
 	 * Busca un usuario por su identificador único.
@@ -32,7 +32,7 @@ export interface IUserRepository {
 	 * @param id Identificador del usuario.
 	 * @returns La entidad `User` encontrada o `null` si no existe.
 	 */
-	findById(id: number): Promise<User | null>;
+	abstract findById(id: number): Promise<User>;
 
 	/**
 	 * Busca un usuario por su nombre de usuario.
@@ -40,7 +40,7 @@ export interface IUserRepository {
 	 * @param username Nombre de usuario único.
 	 * @returns La entidad `User` encontrada o `null` si no existe.
 	 */
-	findByUsername(username: string): Promise<User | null>;
+	abstract findByUsername(username: string): Promise<User | null>;
 
 	/**
 	 * Busca un usuario por su dirección de correo electrónico.
@@ -48,7 +48,7 @@ export interface IUserRepository {
 	 * @param email Value Object `Email` del usuario.
 	 * @returns La entidad `User` encontrada o `null` si no existe.
 	 */
-	findByEmail(email: Email): Promise<User | null>;
+	abstract findByEmail(email: Email): Promise<User | null>;
 
 	/**
 	 * Busca un usuario por su nombre de usuario o correo electrónico.
@@ -57,19 +57,19 @@ export interface IUserRepository {
 	 * @param email Value Object `Email` del usuario.
 	 * @returns La entidad `User` encontrada o `null` si no existe.
 	 */
-	findByUsernameOrEmail(username: string, email: Email): Promise<User | null>;
+	abstract findByUsernameOrEmail(username: string, email: Email): Promise<User | null>;
 
 	/**
 	 * Obtiene todos los usuarios registrados.
 	 *
 	 * @returns Una lista de entidades `User`.
 	 */
-	findAll(): Promise<User[]>;
+	abstract findAll(): Promise<User[]>;
 
 	/**
 	 * Elimina un usuario del repositorio por su identificador.
 	 *
 	 * @param id Identificador del usuario a eliminar.
 	 */
-	delete(id: number): Promise<void>;
+	abstract delete(id: number): Promise<void>;
 }

@@ -1,11 +1,9 @@
-import { Role } from "src/modules/users/domain/entities/role.entity";
+import { Role } from "../../../domain/entities/role.entity";
 import { RoleOrmEntity } from "../orm-entities/role.orm-entity";
 
 
 export class RoleOrmMapper {
-	static toDomain(entity: RoleOrmEntity): Role | undefined {
-		if (!entity) return undefined;
-
+	static toDomain(entity: RoleOrmEntity): Role {
 		return new Role(
 			entity.id,
 			entity.name,

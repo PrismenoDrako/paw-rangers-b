@@ -1,5 +1,5 @@
 import { DocType } from "src/modules/users/domain/entities/doctype.entity";
-import { IDocTypeRepository } from "src/modules/users/domain/repositories/doctype.repository.interface";
+import { IDocTypeRepository } from "src/modules/users/domain/repositories/doctype.repository";
 
 /**
  * Caso de uso: Obtener un tipo de documento por ID.
