@@ -1,4 +1,4 @@
-import { IDocTypeRepository } from "src/modules/users/domain/repositories/doctype.repository.interface";
+import { IDocTypeRepository } from "src/modules/users/domain/repositories/doctype.repository";
 
 /**
  * Caso de uso: Eliminar un tipo de documento.

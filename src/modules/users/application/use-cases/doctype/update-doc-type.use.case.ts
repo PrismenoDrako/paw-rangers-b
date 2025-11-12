@@ -1,5 +1,5 @@
 import { DocType } from "src/modules/users/domain/entities/doctype.entity";
-import { IDocTypeRepository } from "src/modules/users/domain/repositories/doctype.repository.interface";
+import { IDocTypeRepository } from "src/modules/users/domain/repositories/doctype.repository";
 import { UpdateDocTypeDto } from "../../dto/doctype/update-doctype.dto";
 
 

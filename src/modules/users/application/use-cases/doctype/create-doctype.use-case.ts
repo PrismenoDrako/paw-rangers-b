@@ -1,4 +1,4 @@
-import { IDocTypeRepository } from "src/modules/users/domain/repositories/doctype.repository.interface";
+import { IDocTypeRepository } from "src/modules/users/domain/repositories/doctype.repository";
 import { CreateDocTypeDto } from "../../dto/doctype/create-doctype.dto";
 import { DocType } from "src/modules/users/domain/entities/doctype.entity";
 

@@ -12,7 +12,7 @@
  * };
  * ```
  */
-export interface UpdateDocTypeDto {
+export class UpdateDocTypeDto {
 	/**
 	 * Identificador único del tipo de documento que se desea actualizar.
 	 */

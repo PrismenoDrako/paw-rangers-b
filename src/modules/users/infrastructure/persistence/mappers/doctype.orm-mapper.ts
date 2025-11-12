@@ -1,12 +1,10 @@
 
-import { DocType } from "src/modules/users/domain/entities/doctype.entity";
+import { DocType } from "./../../../domain/entities/doctype.entity";
 import { DocTypeOrmEntity } from "../orm-entities/doctype.orm-entity";
 
 
 export class DocTypeOrmMapper {
-	static toDomain(entity: DocTypeOrmEntity): DocType | undefined {
-		if (!entity) return undefined;
-
+	static toDomain(entity: DocTypeOrmEntity): DocType{
 		return new DocType(entity.id, entity.name, entity.description, entity.length);
 	}
 

@@ -19,7 +19,7 @@ if (!moduleName) {
 try {
 	const basePath = join(__dirname, '..', 'src', 'modules', moduleName);
 
-	console.log(`🚀 Generando módulo "${moduleName}" con Nest CLI...`);
+	console.log(`Generando módulo "${moduleName}" con Nest CLI...`);
 	execSync(`npx nest g module modules/${moduleName}`, { stdio: 'inherit' });
 
 

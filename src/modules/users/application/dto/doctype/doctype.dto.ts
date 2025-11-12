@@ -14,7 +14,7 @@
  * };
  * ```
  */
-export interface DocTypeDto {
+export class DocTypeDto {
 	/**
 	 * Identificador único del tipo de documento.
 	 */

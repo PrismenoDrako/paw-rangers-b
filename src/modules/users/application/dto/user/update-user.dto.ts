@@ -5,9 +5,6 @@
  * Permite modificar solo los campos editables de la entidad `User`.
  */
 export interface UpdateUserDto {
-	/** Identificador único del usuario a actualizar. */
-	id: number;
-
 	/** Nombres de pila del usuario (opcional). */
 	name?: string;
 
