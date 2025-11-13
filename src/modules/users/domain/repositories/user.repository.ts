@@ -40,7 +40,7 @@ export abstract class IUserRepository {
 	 * @param username Nombre de usuario único.
 	 * @returns La entidad `User` encontrada o `null` si no existe.
 	 */
-	abstract findByUsername(username: string): Promise<User | null>;
+	abstract findByUsername(username: string): Promise<User>;
 
 	/**
 	 * Busca un usuario por su dirección de correo electrónico.
