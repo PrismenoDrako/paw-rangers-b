@@ -1,3 +1,5 @@
+import { PetImage } from "./pet-image.entity";
+
 /**
  * Entidad de dominio que representa una mascota registrada en el sistema.
  *
@@ -24,5 +26,20 @@ export class Pet {
         public breedId: number,
         public userId: number,
         public isActive: boolean,
+        public images: PetImage[] = [],
     ) {}
+
+
+    static create(props: Partial<Pet>): Pet {
+		return new Pet(
+			props.id ?? 0,
+			props.name ?? '',
+			props.age ?? 0,
+			props.speciesId ?? 0,
+			props.breedId ?? 0,
+			props.userId ?? 0,
+			props.isActive ?? true,
+			props.images ?? [],
+		);
+	}
 }

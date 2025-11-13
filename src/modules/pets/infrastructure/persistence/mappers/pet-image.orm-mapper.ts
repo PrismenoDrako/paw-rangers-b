@@ -1,4 +1,4 @@
-import { PetImage } from "src/modules/pets/domain/entities/pet-image.entity";
+import { PetImage } from "../../../domain/entities/pet-image.entity";
 import { PetImageOrmEntity } from "../orm-entities/pet-image.orm-entity";
 
 /**

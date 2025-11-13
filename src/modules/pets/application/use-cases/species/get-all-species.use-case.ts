@@ -1,6 +1,6 @@
 import { Inject } from "@nestjs/common";
-import { Species } from "src/modules/pets/domain/entities/species.entity";
-import { SpeciesRepository } from "src/modules/pets/domain/repositories/species.repository";
+import { Species } from "../../../domain/entities/species.entity";
+import { SpeciesRepository } from "../../../domain/repositories/species.repository";
 
 export class GetAllSpeciesUseCase{
     

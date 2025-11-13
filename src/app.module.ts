@@ -7,6 +7,7 @@ import { ConfigModule } from '@nestjs/config';
 import { DatabaseModule } from './database/database.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { PetsModule } from './modules/pets/pets.module';
+import { StorageModule } from './modules/storage/storage.module';
 
 
 
@@ -30,7 +31,8 @@ import { PetsModule } from './modules/pets/pets.module';
     UsersModule,
     DatabaseModule,
     AuthModule,
-    PetsModule],
+    PetsModule,
+    StorageModule],
   controllers: [AppController],
   providers: [AppService],
 })
