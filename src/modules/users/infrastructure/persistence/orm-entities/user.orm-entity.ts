@@ -53,7 +53,7 @@ export class UserOrmEntity {
 	docType?: DocTypeOrmEntity;
 
 	/** Número de documento de identificación. */
-	@Column({ nullable: true })
+	@Column({ nullable: true, unique: true })
 	docNumber?: string;
 
 	/** Dirección del usuario. */
