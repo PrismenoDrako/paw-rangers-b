@@ -33,8 +33,10 @@ export class UserRepository extends IUserRepository {
         const ormEntity = await this.userRepository.findOneBy({id});
         return UserOrmMapper.toDomain(ormEntity);
     }
-    findByUsername(username: string): Promise<User | null> {
-        throw new Error("Method not implemented.");
+    async findByUsername(username: string): Promise<User> {
+        const ormUser = await this.userRepository.findOneBy({ username });
+        const res = UserOrmMapper.toDomain(ormUser);
+        return res;
     }
     findByEmail(email: Email): Promise<User | null> {
         throw new Error("Method not implemented.");

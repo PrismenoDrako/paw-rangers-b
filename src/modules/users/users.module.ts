@@ -16,6 +16,7 @@ import { UserRepository } from './infrastructure/persistence/repositories/user.r
 import { IUserRepository } from './domain/repositories/user.repository';
 import { UserOrmEntity } from './infrastructure/persistence/orm-entities/user.orm-entity';
 import { UpdateUserUseCase } from './application/use-cases/user/update-user.use-case';
+import { GetUserByUsernameUseCase } from './application/use-cases/user/get-user-by-username.use-case';
 
 
 
@@ -44,13 +45,16 @@ import { UpdateUserUseCase } from './application/use-cases/user/update-user.use-
 			useExisting: UserRepository
 		},
 		GetAllUsersUseCase,
-		UpdateUserUseCase
+		GetUserByUsernameUseCase,
+		UpdateUserUseCase,
+
 	],
 	exports: [
 		GetAllDocTypesUseCase,
 		GetAllRolesUseCase,
 		GetAllUsersUseCase,
-		UpdateUserUseCase
+		GetUserByUsernameUseCase,
+		UpdateUserUseCase,		
 	],
 })
 export class UsersModule { }

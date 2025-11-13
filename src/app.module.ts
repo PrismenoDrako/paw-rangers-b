@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './modules/users/users.module';
 import { ConfigModule } from '@nestjs/config';
 import { DatabaseModule } from './database/database.module';
+import { AuthModule } from './modules/auth/auth.module';
 
 
 
@@ -26,7 +27,8 @@ import { DatabaseModule } from './database/database.module';
       synchronize: true, // solo en desarrollo
     }),
     UsersModule,
-    DatabaseModule],
+    DatabaseModule,
+    AuthModule],
   controllers: [AppController],
   providers: [AppService],
 })
