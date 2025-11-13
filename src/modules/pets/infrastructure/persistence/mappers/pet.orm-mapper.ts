@@ -1,4 +1,6 @@
+import { PetImage } from "../../../domain/entities/pet-image.entity";
 import { Pet } from "../../../domain/entities/pet.entity";
+import { PetImageOrmEntity } from "../orm-entities/pet-image.orm-entity";
 import { PetOrmEntity } from "../orm-entities/pet.orm-entity";
 
 /**
@@ -21,30 +23,45 @@ export class PetOrmMapper {
             entity.id,
             entity.name,
             entity.age,
-            entity.species?.id,
-            entity.breed?.id,
-            entity.user?.id,
+            entity.species.id,
+            entity.breed.id,
+            entity.user.id,
             entity.isActive,
+            entity.images?.map(img => new PetImage(
+                img.id,
+                entity.id,
+                img.url,
+                img.description,
+                img.isMain
+            )) || []
         );
     }
 
     /**
-     * Convierte una entidad de dominio (`Pet`) a una entidad ORM (`PetOrmEntity`).
-     *
-     * @param domain - Instancia de `Pet` proveniente de la capa de dominio.
-     * @returns Una nueva instancia de `PetOrmEntity` lista para ser persistida con TypeORM.
-     *
-     * @remarks
-     * Las relaciones (`species`, `breed`, `user`) deben asignarse en el repositorio
-     * antes de guardar la entidad, ya que aquí solo se copian los datos básicos.
+     * Convierte una entidad del dominio a ORM.
+     * @param pet Pet del dominio
+     * @returns PetOrmEntity
      */
-    static toOrmEntity(domain: Pet): PetOrmEntity {
-        const ormEntity = new PetOrmEntity();
-        ormEntity.id = domain.id;
-        ormEntity.name = domain.name;
-        ormEntity.age = domain.age;
-        ormEntity.isActive = domain.isActive;
-        // Relaciones species, breed y user se asignan en el repositorio
-        return ormEntity;
+    static toOrmEntity(pet: Pet): PetOrmEntity {
+        const entity = new PetOrmEntity();
+        entity.id = pet.id;
+        entity.name = pet.name;
+        entity.age = pet.age;
+        entity.isActive = pet.isActive;
+
+        entity.species = { id: pet.speciesId } as any;
+        entity.breed = { id: pet.breedId } as any;
+        entity.user = { id: pet.userId } as any;
+
+        entity.images = pet.images?.map(img => {
+            const imgEntity = new PetImageOrmEntity();
+            imgEntity.id = img.id;
+            imgEntity.url = img.url;
+            imgEntity.description = img.description;
+            imgEntity.isMain = img.isMain;
+            return imgEntity;
+        }) || [];
+
+        return entity;
     }
 }

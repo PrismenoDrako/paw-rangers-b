@@ -1,4 +1,4 @@
-import { GenericRepository } from "src/modules/shared/domain/generic.repository";
+import { GenericRepository } from "../../../shared/domain/generic.repository";
 import { Breed } from "../entities/breed.entity";
 
 export abstract class BreedRepository extends GenericRepository<Breed>{
