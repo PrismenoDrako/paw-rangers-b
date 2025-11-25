@@ -19,6 +19,7 @@ export class PetOrmMapper {
      * @returns Una nueva instancia de `Pet` lista para usarse en la capa de dominio.
      */
     static toDomain(entity: PetOrmEntity): Pet {
+        console.log('Convirtiendo PetOrmEntity a Pet:', entity);
         return new Pet(
             entity.id,
             entity.name,
