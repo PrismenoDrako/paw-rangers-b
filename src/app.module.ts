@@ -8,6 +8,7 @@ import { DatabaseModule } from './database/database.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { PetsModule } from './modules/pets/pets.module';
 import { StorageModule } from './modules/storage/storage.module';
+import { LocationsModule } from './modules/locations/locations.module';
 
 
 
@@ -32,7 +33,8 @@ import { StorageModule } from './modules/storage/storage.module';
     DatabaseModule,
     AuthModule,
     PetsModule,
-    StorageModule],
+    StorageModule,
+    LocationsModule],
   controllers: [AppController],
   providers: [AppService],
 })

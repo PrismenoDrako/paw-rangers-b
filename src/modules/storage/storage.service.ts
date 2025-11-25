@@ -38,7 +38,8 @@ export class StorageService {
       ACL: 'public-read', // público para desarrollo
     }).promise();
 
-    return `${process.env.AWS_ENDPOINT || 'http://localhost:9000'}/${this.bucket}/${key}`;
+    //return `${process.env.AWS_ENDPOINT || 'http://localhost:9000'}/${this.bucket}/${key}`;
+    return `http://localhost:9000/${this.bucket}/${key}`;
   }
 
   /**
