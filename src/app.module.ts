@@ -9,6 +9,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { PetsModule } from './modules/pets/pets.module';
 import { StorageModule } from './modules/storage/storage.module';
 import { LocationsModule } from './modules/locations/locations.module';
+import { NotificationsModule } from './modules/notifications/notifications.module';
 
 
 
@@ -34,7 +35,8 @@ import { LocationsModule } from './modules/locations/locations.module';
     AuthModule,
     PetsModule,
     StorageModule,
-    LocationsModule],
+    LocationsModule,
+    NotificationsModule],
   controllers: [AppController],
   providers: [AppService],
 })
