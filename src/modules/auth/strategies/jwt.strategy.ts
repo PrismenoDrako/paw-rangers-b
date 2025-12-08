@@ -6,14 +6,26 @@ import { ExtractJwt, Strategy } from 'passport-jwt';
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor() {
     super({
-      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      ignoreExpiration: false, // rechaza tokens expirados automáticamente
+      jwtFromRequest: ExtractJwt.fromExtractors([
+        // 1. Desde cookie HttpOnly
+        (req) => {
+          return req?.cookies?.access_token || null;
+        },
+
+        // 2. Desde Authorization: Bearer <token>
+        ExtractJwt.fromAuthHeaderAsBearerToken(),
+      ]),
+
+      ignoreExpiration: false,
       secretOrKey: process.env.JWT_SECRET || 'super_secret_key',
     });
   }
 
   async validate(payload: any) {
-    // Este objeto se inyectará en req.user
-    return { userId: payload.id, username: payload.username, roleId: payload.roleId };
+    return {
+      userId: payload.id,
+      username: payload.username,
+      roleId: payload.roleId,
+    };
   }
 }
