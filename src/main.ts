@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import cookieParser = require('cookie-parser');
+import { ResponseInterceptor } from './modules/shared/infrastructure/interceptors/response.interceptor';
 
 
 async function bootstrap() {
@@ -14,6 +15,9 @@ async function bootstrap() {
     origin: 'http://localhost:4200',
     credentials: true, // Permite enviar cookies
   });
+
+  app.useGlobalInterceptors(new ResponseInterceptor());
+
 
   await app.listen(process.env.PORT ?? 3000);
 }

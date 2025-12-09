@@ -15,7 +15,7 @@ export class DoctypesController {
     @Get()
 	async getAll() {
 		const doctypes: DocTypeDto[] = await this.getAllDocTypesUseCase.execute();
-		return new ApiResponseDto({ status: 'success', data: doctypes });
+		return doctypes
 	}
 
 	// @Get(':id')

@@ -10,6 +10,7 @@ import { PetsModule } from './modules/pets/pets.module';
 import { StorageModule } from './modules/storage/storage.module';
 import { LocationsModule } from './modules/locations/locations.module';
 import { NotificationsModule } from './modules/notifications/notifications.module';
+import { AlertsModule } from './modules/alerts/alerts.module';
 
 
 
@@ -36,7 +37,8 @@ import { NotificationsModule } from './modules/notifications/notifications.modul
     PetsModule,
     StorageModule,
     LocationsModule,
-    NotificationsModule],
+    NotificationsModule,
+    AlertsModule],
   controllers: [AppController],
   providers: [AppService],
 })
