@@ -16,7 +16,7 @@ export class UserLocationOrmRepository extends UserLocationRepository {
     }
 
     async findByUserId(userId: number): Promise<UserLocation[]> {
-        const userLocations = await this.userLocationRepository.find({ where: { user: { id: userId } } })
+        const userLocations = (await this.userLocationRepository.find({ where: { user: { id: userId } }, relations: ['user'] },));
         return userLocations.map(ul => UserLocationMapper.toDomain(ul));
     }
     async create(location: UserLocation): Promise<UserLocation> {

@@ -1,3 +1,4 @@
+import { UserResponseDto } from "../../application/dto/user/user-response.dto";
 import { User } from "../entities/user.entity";
 import { Email } from "../value-objects/email.vo";
 

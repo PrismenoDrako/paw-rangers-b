@@ -20,8 +20,9 @@ export class UserLocationsController {
     async getAllByUser(
         @Request() req
     ) {
-        const userLocations = await this.getUserLocationsUseCase.execute(req.user.id);
-        return new ApiResponseDto({ status: 'success', data: userLocations });
+        const userLocations = await this.getUserLocationsUseCase.execute(req.user.userId);
+        return userLocations;
+        //return new ApiResponseDto({ status: 'success', data: userLocations });
     }
 
     @UseGuards(JwtAuthGuard)

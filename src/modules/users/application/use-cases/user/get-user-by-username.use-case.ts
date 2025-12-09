@@ -8,7 +8,10 @@ export class GetUserByUsernameUseCase {
     private readonly userRepository: IUserRepository) { }
 
     /**
-     * Devuelve una lista completa de tipos de documento.
+     * Devuelve el usuario asociado al nombre de usuario proporcionado.
+     *
+     * @param username Nombre de usuario único.
+     * @returns La entidad `User` encontrada o `null` si no existe.
      */
     async execute(username: string): Promise<User> {
         return await this.userRepository.findByUsername(username);

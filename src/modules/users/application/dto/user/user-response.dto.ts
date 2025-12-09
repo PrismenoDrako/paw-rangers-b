@@ -38,7 +38,11 @@ export interface UserResponseDto {
 	address?: string;
 
 	/** Identificador del rol asociado (opcional). */
-	roleId?: number;
+	role?: {
+		id: number;
+		name: string;
+		description: string;
+	};
 
 	/** Indica si el usuario está activo dentro del sistema. */
 	isActive: boolean;
