@@ -10,6 +10,8 @@ import { NotificationOrmEntity } from './infrastructure/persistence/orm-entities
 import { UsersModule } from '../users/users.module';
 import { NotificationsGateway } from './infrastructure/gateways/notifications.gateway';
 import { JwtModule } from '@nestjs/jwt';
+import { NotificationsController } from './infrastructure/controllers/notifications/notifications.controller';
+import { NotificationsService } from './infrastructure/services/notifications/notifications.service';
 
 @Module({
     imports: [
@@ -20,7 +22,7 @@ import { JwtModule } from '@nestjs/jwt';
             signOptions: { expiresIn: '1h' },
         }),
     ],
-    controllers: [],
+    controllers: [NotificationsController],
     providers: [
         NotificationOrmRepository,
         {
@@ -31,7 +33,8 @@ import { JwtModule } from '@nestjs/jwt';
         GetNotificationsByUserUseCase,
         MarkNotificationAsReadUseCase,
         DeleteNotificationUseCase,
-        NotificationsGateway
+        NotificationsGateway,
+        NotificationsService
     ],
     exports: [
         CreateNotificationUseCase,

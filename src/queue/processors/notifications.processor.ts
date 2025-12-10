@@ -1,10 +1,11 @@
-import { Processor, WorkerHost, Job } from '@nestjs/bullmq';
+import { Processor, WorkerHost } from '@nestjs/bullmq';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { AlertOrmEntity } from '../../modules/alerts/infrastructure/persistence/orm-entities/alert.orm-entity';
 import { UserLocationOrmEntity } from '../../modules/locations/infrastructure/persistence/orm-entities/user-location.orm.entity';
 import { NotificationsGateway } from '../../modules/notifications/infrastructure/gateways/notifications.gateway';
 import { NotificationOrmEntity } from '../../modules/notifications/infrastructure/persistence/orm-entities/notification.orm-entity';
+import { Job } from 'bullmq';
 
 @Processor('notifications')
 export class NotificationsProcessor extends WorkerHost {
