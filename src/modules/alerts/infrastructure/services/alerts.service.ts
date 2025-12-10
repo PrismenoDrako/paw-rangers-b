@@ -8,6 +8,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { AlertOrmEntity } from '../persistence/orm-entities/alert.orm-entity';
 import { Repository } from 'typeorm';
 import { UserLocationOrmEntity } from '../../../locations/infrastructure/persistence/orm-entities/user-location.orm.entity';
+import { InjectQueue } from '@nestjs/bullmq';
+import { Queue } from 'bullmq';
 
 @Injectable()
 export class AlertService {
@@ -18,6 +20,8 @@ export class AlertService {
 
         @InjectRepository(UserLocationOrmEntity)
         private readonly userLocationRepository: Repository<UserLocationOrmEntity>,
+        @InjectQueue('notifications')
+        private readonly notificationsQueue: Queue,
     ) { }
 
 
@@ -96,8 +100,14 @@ export class AlertService {
             });
         }
 
-        // Guardar usando el repository
-        return this.alertRepository.save(alert);
+        const saved = await this.alertRepository.save(alert);
+
+        //Crear el job para procesar notificaciones
+        await this.notificationsQueue.add('process-alert', {
+            alertId: saved.id,
+        });
+
+        return saved;
     }
 
     // ------------------ ACTUALIZAR ALERTA ------------------

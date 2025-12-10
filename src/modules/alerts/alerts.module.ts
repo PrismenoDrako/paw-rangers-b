@@ -9,10 +9,14 @@ import { AlertRepository } from './domain/repositories/alert.repository';
 import { AlertOrmRepository } from './infrastructure/persistence/repositories/alert.orm-repository';
 import { AlertStateOrmEntity } from './infrastructure/persistence/orm-entities/alert-state.orm-entity';
 import { UserLocationOrmEntity } from '../locations/infrastructure/persistence/orm-entities/user-location.orm.entity';
+import { BullModule } from '@nestjs/bullmq';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([AlertOrmEntity, AlertImageOrmEntity, AlertStateOrmEntity, UserLocationOrmEntity]), // ORM entities
+    BullModule.registerQueue({
+      name: 'notifications',
+    }),
   ],
   controllers: [AlertsController],
   providers: [

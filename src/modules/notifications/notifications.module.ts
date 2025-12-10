@@ -8,11 +8,17 @@ import { DeleteNotificationUseCase } from './application/use-cases/delete-notifi
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { NotificationOrmEntity } from './infrastructure/persistence/orm-entities/notification.orm-entity';
 import { UsersModule } from '../users/users.module';
+import { NotificationsGateway } from './infrastructure/gateways/notifications.gateway';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
     imports: [
         TypeOrmModule.forFeature([NotificationOrmEntity]),
-        UsersModule
+        UsersModule,
+        JwtModule.register({
+            secret: process.env.JWT_SECRET,
+            signOptions: { expiresIn: '1h' },
+        }),
     ],
     controllers: [],
     providers: [
@@ -25,12 +31,14 @@ import { UsersModule } from '../users/users.module';
         GetNotificationsByUserUseCase,
         MarkNotificationAsReadUseCase,
         DeleteNotificationUseCase,
+        NotificationsGateway
     ],
     exports: [
         CreateNotificationUseCase,
         GetNotificationsByUserUseCase,
         MarkNotificationAsReadUseCase,
         DeleteNotificationUseCase,
+        NotificationsGateway
     ],
 })
-export class NotificationsModule {}
+export class NotificationsModule { }

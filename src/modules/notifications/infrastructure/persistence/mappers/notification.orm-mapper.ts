@@ -25,7 +25,7 @@ export class NotificationMapper {
     static toOrmEntity(domain: Notification): NotificationOrmEntity {
         const orm = new NotificationOrmEntity();
 
-        orm.id = domain.id ?? undefined;
+        orm.id = domain.id ?? 0;
         orm.title = domain.title;
         orm.message = domain.message;
         orm.url = domain.url ?? null;
