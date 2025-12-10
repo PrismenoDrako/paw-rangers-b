@@ -14,8 +14,6 @@ export class AlertImageOrmEntity {
     @Column({ type: 'varchar', length: 500 })
     url: string;
 
-    @Column({ type: 'int' })
-    order: number;
 
     @ManyToOne(
         () => AlertOrmEntity,
