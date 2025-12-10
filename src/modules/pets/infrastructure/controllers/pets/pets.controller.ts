@@ -5,7 +5,6 @@ import { Pet } from '../../../domain/entities/pet.entity';
 import { CreatePetDto } from '../../../application/dto/create-pet.dto';
 import { JwtAuthGuard } from '../../../../auth/jwt/jwt.guard';
 import { GetPetsByUserUseCase } from '../../../application/use-cases/pet/get-pets-by-user.use-case';
-import { ApiResponseDto } from '../../../../shared/infrastructure/api-response';
 
 @Controller('pets')
 export class PetsController {
@@ -36,9 +35,9 @@ export class PetsController {
     @Get()
     async findAll(
         @Request() req
-    ): Promise<ApiResponseDto<Pet[]>> {
-        const userId = req.user.id;
+    ): Promise<Pet[]> {
+        const userId = req.user.userId;
         const pets: Pet[] = await this.getPetsByUserUseCase.execute(userId);
-        return new ApiResponseDto({ status: 'success', data: pets });
+        return pets;
     }
 }

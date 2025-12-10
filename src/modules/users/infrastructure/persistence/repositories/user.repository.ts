@@ -52,4 +52,9 @@ export class UserRepository extends IUserRepository {
         throw new Error("Method not implemented.");
     }
 
+    async getDefaultRole(): Promise<RoleOrmEntity> {
+        const defaultRole = await this.roleRepository.findOneBy({ name: 'Usuario' });
+        return defaultRole!;
+    }
+
 }

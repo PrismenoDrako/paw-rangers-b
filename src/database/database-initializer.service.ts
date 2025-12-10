@@ -13,6 +13,7 @@ import { SpeciesOrmEntity } from "../modules/pets/infrastructure/persistence/orm
 import { BreedOrmEntity } from "../modules/pets/infrastructure/persistence/orm-entities/breed.orm-entity";
 import { Species } from "../modules/pets/domain/entities/species.entity";
 import { Breed } from "../modules/pets/domain/entities/breed.entity";
+import { AlertStateOrmEntity } from "../modules/alerts/infrastructure/persistence/orm-entities/alert-state.orm-entity";
 
 
 @Injectable()
@@ -34,6 +35,9 @@ export class DatabaseInitializerService implements OnApplicationBootstrap {
 
 		@InjectRepository(BreedOrmEntity)
 		private readonly breedRepository: Repository<BreedOrmEntity>,
+
+		@InjectRepository(AlertStateOrmEntity)
+        private readonly alertStateRepository: Repository<AlertStateOrmEntity>,
 	) { }
 
 	async onApplicationBootstrap() {
@@ -50,6 +54,7 @@ export class DatabaseInitializerService implements OnApplicationBootstrap {
 
 		await this.initializeSpecies();
 		await this.initializeBreeds();
+		await this.initializeAlertStates();
 
 		this.logger.log('🎉 Datos iniciales cargados correctamente.');
 	}
@@ -91,9 +96,9 @@ export class DatabaseInitializerService implements OnApplicationBootstrap {
 
 	private async initializeUsers() {
 		const count = await this.userRepository.count();
-		if (count > 0) return; // Ya existen usuarios, no hacer nada
+		if (count >0) return; // Ya existen usuarios, no hacer nada 
 
-		const adminRole = await this.roleRepository.findOne({ where: { name: 'Admin' } });
+		const adminRole = await this.roleRepository.findOne({ where: { name: 'Administrador' } });
 		const dniType = await this.docTypeRepository.findOne({ where: { name: 'DNI' } });
 
 		// Hash rápido de contraseña (usa bcrypt o algo equivalente)
@@ -159,4 +164,22 @@ export class DatabaseInitializerService implements OnApplicationBootstrap {
 			}
 		}
 	}
+
+	private async initializeAlertStates() {
+        const defaultStates = [
+            { name: 'PENDING', description: 'Alerta creada, pendiente de verificación' },
+            { name: 'VERIFIED', description: 'Alerta verificada por el sistema o un administrador' },
+            { name: 'IN_PROGRESS', description: 'Alerta en proceso de resolución' },
+            { name: 'FOUND', description: 'Mascota encontrada' },
+            { name: 'CLOSED', description: 'Alerta cerrada' },
+        ];
+
+        for (const state of defaultStates) {
+            const exists = await this.alertStateRepository.findOne({ where: { name: state.name } });
+            if (!exists) {
+                await this.alertStateRepository.save(this.alertStateRepository.create(state));
+                this.logger.log(`✅ Estado de alerta creado: ${state.name}`);
+            }
+        }
+    }
 }

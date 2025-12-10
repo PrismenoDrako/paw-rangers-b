@@ -17,6 +17,7 @@ import { IUserRepository } from './domain/repositories/user.repository';
 import { UserOrmEntity } from './infrastructure/persistence/orm-entities/user.orm-entity';
 import { UpdateUserUseCase } from './application/use-cases/user/update-user.use-case';
 import { GetUserByUsernameUseCase } from './application/use-cases/user/get-user-by-username.use-case';
+import { BcryptPasswordHasher } from './infrastructure/services/hasher.service';
 
 
 
@@ -47,6 +48,7 @@ import { GetUserByUsernameUseCase } from './application/use-cases/user/get-user-
 		GetAllUsersUseCase,
 		GetUserByUsernameUseCase,
 		UpdateUserUseCase,
+		BcryptPasswordHasher
 
 	],
 	exports: [

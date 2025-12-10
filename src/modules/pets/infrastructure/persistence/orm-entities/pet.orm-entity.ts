@@ -37,11 +37,10 @@ export class PetOrmEntity {
     species: SpeciesOrmEntity;
 
     /**
-     * Relación con la raza de la mascota.
+     * Relación con la raza de la mascota (opcional, puede ser mestiza).
      */
-    @ManyToOne(() => BreedOrmEntity, { eager: true })
-    breed: BreedOrmEntity;
-
+    @ManyToOne(() => BreedOrmEntity, { eager: true, nullable: true })
+    breed?: BreedOrmEntity;
     /**
      * Relación con el usuario propietario de la mascota.
      */
