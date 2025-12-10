@@ -96,9 +96,9 @@ export class DatabaseInitializerService implements OnApplicationBootstrap {
 
 	private async initializeUsers() {
 		const count = await this.userRepository.count();
-		if (count > 0) return; // Ya existen usuarios, no hacer nada
+		if (count >0) return; // Ya existen usuarios, no hacer nada 
 
-		const adminRole = await this.roleRepository.findOne({ where: { name: 'Admin' } });
+		const adminRole = await this.roleRepository.findOne({ where: { name: 'Administrador' } });
 		const dniType = await this.docTypeRepository.findOne({ where: { name: 'DNI' } });
 
 		// Hash rápido de contraseña (usa bcrypt o algo equivalente)
