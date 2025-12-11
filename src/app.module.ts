@@ -13,6 +13,7 @@ import { NotificationsModule } from './modules/notifications/notifications.modul
 import { AlertsModule } from './modules/alerts/alerts.module';
 import { QueueModule } from './queue/queue.module';
 import { StatsModule } from './modules/stats/stats.module';
+import { ReportsModule } from './modules/reports/reports.module';
 
 
 
@@ -42,7 +43,8 @@ import { StatsModule } from './modules/stats/stats.module';
     NotificationsModule,
     AlertsModule,
     QueueModule,
-    StatsModule],
+    StatsModule,
+    ReportsModule],
   controllers: [AppController],
   providers: [AppService],
 })
