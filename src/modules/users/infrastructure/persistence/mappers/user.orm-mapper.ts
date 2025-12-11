@@ -32,6 +32,7 @@ export class UserOrmMapper {
 			ormEntity.lastName2,
 			ormEntity.docType ? ormEntity.docType.id : undefined, // solo ID
 			ormEntity.docNumber,
+			ormEntity.phone,
 			ormEntity.address,
 			ormEntity.role ? ormEntity.role.id : undefined, // solo ID
 			ormEntity.isActive,

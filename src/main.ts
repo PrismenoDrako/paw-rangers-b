@@ -3,6 +3,7 @@ import { AppModule } from './app.module';
 import cookieParser = require('cookie-parser');
 import { ResponseInterceptor } from './modules/shared/infrastructure/interceptors/response.interceptor';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { SeedService } from './seed/seed.service';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -31,6 +32,11 @@ async function bootstrap() {
   SwaggerModule.setup('api/docs', app, document); // Ruta: /api/docs
   // -----------------------------------------
 
+  // 🚀 Ejecutar el seeder solo en demo/testing
+  const seedService = app.get(SeedService);
+  //await seedService.generateUsers(20); // genera 20 usuarios}
+
+  console.log("cambio123");
   await app.listen(process.env.PORT ?? 3000);
   
 }

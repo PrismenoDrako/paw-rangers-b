@@ -15,6 +15,7 @@ import { QueueModule } from './queue/queue.module';
 import { StatsModule } from './modules/stats/stats.module';
 import { ReportsModule } from './modules/reports/reports.module';
 import { PrometheusModule } from '@willsoto/nestjs-prometheus';
+import { SeedModule } from './seed/seed.module';
 
 
 
@@ -46,7 +47,8 @@ import { PrometheusModule } from '@willsoto/nestjs-prometheus';
     AlertsModule,
     QueueModule,
     StatsModule,
-    ReportsModule],
+    ReportsModule,
+    SeedModule],
   controllers: [AppController],
   providers: [AppService],
 })

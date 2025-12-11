@@ -9,7 +9,7 @@ export class AlertImageMapper {
             id: entity.id,
             alertId: entity.alertId,
             url: entity.url,
-            order: entity.order,
+
         };
     }
 
@@ -19,7 +19,6 @@ export class AlertImageMapper {
         orm.id = domain.id;
         orm.alertId = domain.alertId;
         orm.url = domain.url;
-        orm.order = domain.order;
 
         return orm;
     }

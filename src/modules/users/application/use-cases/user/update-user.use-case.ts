@@ -25,6 +25,7 @@ export class UpdateUserUseCase {
             dto.lastName2 ?? existing.lastName2,
             dto.docTypeId ?? existing.docTypeId,
             existing.docNumber,
+            '',
             dto.address ?? existing.address,
             dto.roleId ?? existing.roleId,
             existing.isActive

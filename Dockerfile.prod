@@ -1,0 +1,30 @@
+# Stage 1: Build
+FROM node:22-alpine AS builder
+WORKDIR /app
+
+# Copiar package.json y package-lock.json
+COPY package*.json ./
+
+# Instalar todas las dependencias (prod + dev) para compilar
+RUN npm ci
+
+# Copiar todo el código
+COPY . .
+
+# Compilar NestJS
+RUN npm run build
+
+# Stage 2: Production
+FROM node:22-alpine AS prod
+WORKDIR /app
+
+# Solo instalar dependencias de producción
+COPY package*.json ./
+RUN npm ci --omit=dev
+
+# Copiar la carpeta compilada del builder
+COPY --from=builder /app/dist ./dist
+
+EXPOSE 3000
+
+CMD ["node", "dist/main.js"]
