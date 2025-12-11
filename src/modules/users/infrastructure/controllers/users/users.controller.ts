@@ -85,7 +85,8 @@ export class UsersController {
                     lastName2: 'García',
                     docTypeId: 2,
                     docNumber: '12345678',
-                    address: 'Av. Siempre Viva 123'
+                    address: 'Av. Siempre Viva 123',
+                    phone: '999888777'
                 }
             },
             partialUpdate: {

@@ -43,6 +43,7 @@ export class UsersService {
 		if (updateData.lastName2 !== undefined) user.lastName2 = updateData.lastName2;
 		if (updateData.docNumber !== undefined) user.docNumber = updateData.docNumber;
 		if (updateData.address !== undefined) user.address = updateData.address;
+		if (updateData.phone !== undefined) user.phone = updateData.phone;
 
 		// Guardar cambios
 		return this.userRepository.save(user);
