@@ -5,6 +5,8 @@ import { Repository } from 'typeorm';
 import { StorageService } from '../../../../storage/storage.service';
 import { AlertReportImageOrmEntity } from '../../persistence/orm-entities/report-image.orm-entity';
 import { CreateReportDto } from '../../dto/create-report.dto';
+import { InjectQueue } from '@nestjs/bullmq';
+import { Queue } from 'bullmq';
 
 @Injectable()
 export class ReportsService {
@@ -13,7 +15,9 @@ export class ReportsService {
         private readonly reportRepository: Repository<AlertReportOrmEntity>,
         @InjectRepository(AlertReportImageOrmEntity)
         private readonly reportImageRepository: Repository<AlertReportImageOrmEntity>,
-        private readonly storageService: StorageService
+        private readonly storageService: StorageService,
+		@InjectQueue('notifications')
+    private readonly notificationsQueue: Queue, //inyectamos la cola
     ){}
 
 
@@ -44,6 +48,14 @@ export class ReportsService {
 
 	// 3. Guardar todo en la BD (gracias a cascade en images)
 	const saved = await this.reportRepository.save(report);
+
+
+    // Crear job asíncrono para notificar al creador de la alerta
+    await this.notificationsQueue.add('report-alert', {
+      reportId: saved.id,
+      alertId: dto.alertId,
+      reporterId: userId,
+    });
 
 	return saved;
 }

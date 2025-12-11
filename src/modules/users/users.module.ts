@@ -18,7 +18,7 @@ import { UserOrmEntity } from './infrastructure/persistence/orm-entities/user.or
 import { UpdateUserUseCase } from './application/use-cases/user/update-user.use-case';
 import { GetUserByUsernameUseCase } from './application/use-cases/user/get-user-by-username.use-case';
 import { BcryptPasswordHasher } from './infrastructure/services/hasher.service';
-
+import { UsersService } from './infrastructure/services/users.service';
 
 
 @Module({
@@ -48,8 +48,8 @@ import { BcryptPasswordHasher } from './infrastructure/services/hasher.service';
 		GetAllUsersUseCase,
 		GetUserByUsernameUseCase,
 		UpdateUserUseCase,
-		BcryptPasswordHasher
-
+		BcryptPasswordHasher,
+		UsersService,
 	],
 	exports: [
 		GetAllDocTypesUseCase,

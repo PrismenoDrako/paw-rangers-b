@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Patch, Post, Put } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post, Put, Req, UseGuards } from '@nestjs/common';
 import { GetAllUsersUseCase } from '../../../application/use-cases/user/get-all.users.use-case';
 import { ApiResponseDto } from '../../../../shared/infrastructure/api-response';
 import { User } from '../../../domain/entities/user.entity';
@@ -9,6 +9,11 @@ import { Password } from '../../../domain/value-objects/password.vo';
 import { Email } from '../../../domain/value-objects/email.vo';
 import { BcryptPasswordHasher } from '../../services/hasher.service';
 import { UserRepository } from '../../persistence/repositories/user.repository';
+import { JwtAuthGuard } from '../../../../auth/jwt/jwt.guard';
+import { UsersService } from '../../services/users.service';
+import { UserOrmEntity } from '../../persistence/orm-entities/user.orm-entity';
+import { ApiBearerAuth, ApiBody, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { UpdateUserDto_ } from '../../dto/update-user.dto';
 
 /**
  * Controlador para los endpoints de usuarios.
@@ -21,9 +26,12 @@ export class UsersController {
         private readonly updateUserUseCase: UpdateUserUseCase,
         private readonly hasher: BcryptPasswordHasher,
         private readonly userRepo: UserRepository,
+        private readonly userService: UsersService
     ) { }
 
     @Get()
+    @ApiOperation({ summary: 'Obtener todos los usuarios' })
+    @ApiResponse({ status: 200, description: 'Lista de usuarios', type: [User] })
     async getAll() {
         const users: User[] = await this.getAllUsersUseCase.execute();
         return new ApiResponseDto({ status: 'success', data: users });
@@ -60,6 +68,42 @@ export class UsersController {
         );
 
         return this.userRepo.save(user);
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Patch('me')
+    @ApiBearerAuth()
+    @ApiOperation({ summary: 'Actualizar los propios datos del usuario autenticado' })
+    @ApiBody({
+        type: UpdateUserDto_,
+        examples: {
+            fullUpdate: {
+                summary: 'Actualizar todos los campos editables',
+                value: {
+                    name: 'Juan',
+                    lastName1: 'Pérez',
+                    lastName2: 'García',
+                    docTypeId: 2,
+                    docNumber: '12345678',
+                    address: 'Av. Siempre Viva 123'
+                }
+            },
+            partialUpdate: {
+                summary: 'Actualizar solo nombre y dirección',
+                value: {
+                    name: 'María',
+                    address: 'Calle Falsa 456'
+                }
+            }
+        }
+    })
+    @ApiResponse({ status: 200, description: 'Usuario actualizado', type: UserOrmEntity })
+    async updateOwnUser(
+        @Req() req,
+        @Body() updateData: UpdateUserDto,
+    ): Promise<UserOrmEntity> {
+        const userId = req.user.userId;
+        return this.userService.updateOwnUser(userId, updateData);
     }
 
 }
