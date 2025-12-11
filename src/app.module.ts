@@ -14,6 +14,7 @@ import { AlertsModule } from './modules/alerts/alerts.module';
 import { QueueModule } from './queue/queue.module';
 import { StatsModule } from './modules/stats/stats.module';
 import { ReportsModule } from './modules/reports/reports.module';
+import { PrometheusModule } from '@willsoto/nestjs-prometheus';
 
 
 
@@ -34,6 +35,7 @@ import { ReportsModule } from './modules/reports/reports.module';
       autoLoadEntities: true,
       synchronize: true, // solo en desarrollo
     }),
+    PrometheusModule.register(),
     UsersModule,
     DatabaseModule,
     AuthModule,

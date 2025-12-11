@@ -55,6 +55,24 @@ services:
       - "6379:6379"
     volumes:
       - redis_data:/data
+  
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: paw_rangers_prometheus
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+    depends_on:
+      - api
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: paw_rangers_grafana
+    ports:
+      - "3001:3000"
+    depends_on:
+      - prometheus
  
 
 volumes:

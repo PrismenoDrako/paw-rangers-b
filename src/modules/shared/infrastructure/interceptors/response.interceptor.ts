@@ -10,6 +10,13 @@ import { ApiResponseDto } from '../api-response';
 @Injectable()
 export class ResponseInterceptor implements NestInterceptor {
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
+    const request = context.switchToHttp().getRequest();
+
+    // Ignorar /metrics
+    if (request.url === '/metrics') {
+      return next.handle();
+    }
+
     return next.handle().pipe(
       map((data) => {
         // Si el handler ya devolvió un ApiResponseDto, no lo modificamos
