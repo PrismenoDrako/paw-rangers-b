@@ -9,6 +9,9 @@ import { JwtAuthGuard } from '../../../../auth/jwt/jwt.guard';
 import { InjectRepository } from '@nestjs/typeorm';
 import { AlertStateOrmEntity } from '../../persistence/orm-entities/alert-state.orm-entity';
 import { Repository } from 'typeorm';
+import { ApiBearerAuth, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { AlertOrmEntity } from '../../persistence/orm-entities/alert.orm-entity';
+import { AlertDetailResponseDto } from '../../dto/alert-detail-response.dto';
 
 @Controller('alerts')
 export class AlertsController {
@@ -27,7 +30,7 @@ export class AlertsController {
         @Request() req,
         @Param('page') page: number = 1
     ): Promise<AlertResponseDto[]> {
-        const alerts = await this.alertService.findNearbyAlerts(req.user.userId, page );
+        const alerts = await this.alertService.findNearbyAlerts(req.user.userId, page);
         return alerts.map(alert => new AlertResponseDto(alert));
     }
 
@@ -78,4 +81,17 @@ export class AlertsController {
         return new AlertResponseDto(alert);
     }
 
+
+    @UseGuards(JwtAuthGuard)
+    @Get(':id')
+    @ApiBearerAuth()
+    @ApiOperation({ summary: 'Obtener detalle completo de una alerta por ID' })
+    @ApiResponse({ status: 200, description: 'Alerta encontrada', type: AlertDetailResponseDto })
+    @ApiResponse({ status: 404, description: 'Alerta no encontrada' })
+    async findOne(@Param('id') id: string): Promise<AlertDetailResponseDto> {
+        const alert = await this.alertService.findById(Number(id));
+        return new AlertDetailResponseDto(alert);
+    }
+
+    
 }

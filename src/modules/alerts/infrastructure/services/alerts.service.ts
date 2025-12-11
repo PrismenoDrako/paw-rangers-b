@@ -81,6 +81,26 @@ export class AlertService {
         return query.getMany();
     }
 
+
+    /**
+     * Obtiene el detalle completo de una alerta por su ID.
+     * @param id ID de la alerta
+     * @returns Alerta con todas sus relaciones
+     * @throws NotFoundException si no existe la alerta
+     */
+    async findById(id: number): Promise<AlertOrmEntity> {
+        const alert = await this.alertRepository_.findOne({
+            where: { id },
+            relations: ['images', 'species', 'breed', 'user', 'state'],
+        });
+
+        if (!alert) {
+            throw new NotFoundException(`Alert with id ${id} not found`);
+        }
+
+        return alert;
+    }
+
     async findAll(): Promise<Alert[]> {
         return this.alertRepository.findAll();
     }

@@ -60,6 +60,9 @@ export class UserOrmEntity {
 	@Column({ nullable: true })
 	address?: string;
 
+	@Column({ nullable: true })
+	phone?: string;
+
 	/** Rol asignado al usuario dentro del sistema. */
 	@ManyToOne(() => RoleOrmEntity, { nullable: true })
 	@JoinColumn({ name: 'role_id' })
