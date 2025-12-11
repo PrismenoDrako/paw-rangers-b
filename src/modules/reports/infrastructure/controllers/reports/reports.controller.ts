@@ -5,10 +5,12 @@ import {
 	UploadedFiles,
 	UseInterceptors,
 	Req,
-	UseGuards
+	UseGuards,
+	Get,
+	Param
 } from '@nestjs/common';
 import { FilesInterceptor } from '@nestjs/platform-express';
-import { ApiTags, ApiOperation, ApiConsumes, ApiBody } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiConsumes, ApiBody, ApiParam } from '@nestjs/swagger';
 
 import { ReportsService } from '../../services/reports/reports.service';
 import { CreateReportDto } from '../../dto/create-report.dto';
@@ -49,5 +51,14 @@ export class ReportsController {
 		const userId = req.user.userId;
 
 		return this.reportsService.createReport(dto, userId, images);
+	}
+
+	@Get(':id')
+	@ApiOperation({ summary: 'Obtener detalle completo de un reporte por ID' })
+	@ApiParam({ name: 'id', type: 'number', example: 1 })
+	async getReport(@Param('id') id: string) {
+		// TypeORM espera un número, por eso convertimos
+		const reportId = parseInt(id, 10);
+		return this.reportsService.getReportById(reportId);
 	}
 }

@@ -62,6 +62,7 @@ export class UsersController {
             dto.lastName2,
             dto.docTypeId,
             dto.docNumber,
+            dto.phone,
             dto.address,
             defaultRole.id, // rol por defecto
             true

@@ -52,6 +52,7 @@ export class User {
 		public lastName2?: string,
 		public docTypeId?: number,
 		public docNumber?: string,
+		public phone?: string,
 		public address?: string,
 		public roleId?: number,
 		public isActive: boolean = true,
