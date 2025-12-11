@@ -18,6 +18,7 @@ import { PetRepository } from './domain/repositories/pet.repository';
 import { GetPetsByUserUseCase } from './application/use-cases/pet/get-pets-by-user.use-case';
 import { CreatePetUseCase } from './application/use-cases/pet/create-pet.use-case';
 import { StorageModule } from '../storage/storage.module';
+import { PetsService } from './infrastructure/services/pets/pets.service';
 
 
 
@@ -47,6 +48,7 @@ import { StorageModule } from '../storage/storage.module';
 		},
 		GetPetsByUserUseCase,
 		CreatePetUseCase,
+		PetsService,
 	],
 	exports:[
 		GetAllSpeciesUseCase,

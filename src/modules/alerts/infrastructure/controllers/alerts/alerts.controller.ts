@@ -41,7 +41,7 @@ export class AlertsController {
         @Request() req
     ): Promise<AlertResponseDto> {
 
-        const state = await this.alertStateRepository.findOne({ where: { name: 'PENDING' } });
+        const state = await this.alertStateRepository.findOne({ where: { name: 'ACTIVE' } });
         dto.userId = req.user.userId;
         dto.stateId = state!.id;
 

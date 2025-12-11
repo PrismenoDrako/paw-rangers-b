@@ -30,6 +30,7 @@ export class NotificationsGateway implements OnGatewayConnection, OnGatewayDisco
 
     // Validar token en handshake y unir al usuario a su sala
     async handleConnection(client: Socket) {
+
         try {
             const token = this.extractTokenFromClient(client);
             if (!token) {
@@ -61,19 +62,44 @@ export class NotificationsGateway implements OnGatewayConnection, OnGatewayDisco
 
     // helper para extraer token de handshake (query or headers)
     private extractTokenFromClient(client: Socket): string | null {
-        // 1) try auth in query (socket.io client: io(url, { auth: { token } }))
-        const auth = (client.handshake as any).auth;
-        if (auth && auth.token) return auth.token as string;
+        const handshake = client.handshake;
 
-        // 2) try headers (less common)
-        const headers = client.handshake.headers || {};
-        if (headers.authorization && typeof headers.authorization === 'string') {
-            const parts = headers.authorization.split(' ');
-            if (parts.length === 2 && parts[0] === 'Bearer') return parts[1];
+        /** 1) Authorization: Bearer xx.xx.xx */
+        const authHeader = handshake.headers?.authorization;
+        if (typeof authHeader === 'string') {
+            const [scheme, token] = authHeader.split(' ');
+            if (scheme === 'Bearer' && token) {
+                return token;
+            }
+        }
+
+        /** 2) access_token en handshake (ej: io(url, { auth: { access_token } }) ) */
+        const accessToken = (handshake as any).access_token;
+        if (typeof accessToken === 'string') {
+            return accessToken;
+        }
+
+        /** 3) auth.token como fallback */
+        const tokenFromAuth = (handshake as any).auth?.token;
+        if (typeof tokenFromAuth === 'string') {
+            return tokenFromAuth;
+        }
+
+        /** 4) Buscar en cookies: access_token=xxx */
+        const cookieHeader = handshake.headers?.cookie;
+        if (typeof cookieHeader === 'string') {
+            const cookies = cookieHeader.split(';').map(c => c.trim());
+            for (const cookie of cookies) {
+                if (cookie.startsWith('access_token=')) {
+                    return cookie.replace('access_token=', '');
+                }
+            }
         }
 
         return null;
     }
+
+
 
     // Emitir a un usuario
     emitToUser(userId: number, payload: any) {

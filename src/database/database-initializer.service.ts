@@ -167,11 +167,9 @@ export class DatabaseInitializerService implements OnApplicationBootstrap {
 
 	private async initializeAlertStates() {
         const defaultStates = [
-            { name: 'PENDING', description: 'Alerta creada, pendiente de verificación' },
-            { name: 'VERIFIED', description: 'Alerta verificada por el sistema o un administrador' },
-            { name: 'IN_PROGRESS', description: 'Alerta en proceso de resolución' },
-            { name: 'FOUND', description: 'Mascota encontrada' },
-            { name: 'CLOSED', description: 'Alerta cerrada' },
+            { name: 'ACTIVE', description: 'Alerta activa' },
+            { name: 'RESOLVED', description: 'Alerta resulta exitosamente' },
+            { name: 'UNRESOLVED', description: 'Alerta cerrada sin éxito' },
         ];
 
         for (const state of defaultStates) {
